@@ -1,0 +1,753 @@
+{
+	"info": {
+		"_postman_id": "d84cc0a4-d6cf-4eda-a0f9-dc99a21f4332",
+		"name": "EmployeeManagement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.accessToken);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin@dummy.com\",\r\n    \"password\": \"P@ssw0rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/auth/token",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin@dummy.com\",\r\n    \"password\": \"P@ssw0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/auth/token",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:08:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"accessToken\": \"c0f193d9-3d20-4bcd-8065-d5e74620fcd1\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ListEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employees",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employees"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:09:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"firstName\": \"Administrator\",\n        \"lastName\": \"Admin\",\n        \"nickName\": \"admin\",\n        \"email\": \"admin@dummy.com\",\n        \"telephone\": \"123456789\",\n        \"address\": \"123/4\",\n        \"city\": \"Bangkok\",\n        \"country\": \"Thailand\",\n        \"postCode\": 10120,\n        \"hiredDate\": \"2021-01-17T07:08:40.253+00:00\",\n        \"createdDate\": \"2021-01-17T07:08:40.253+00:00\",\n        \"modifiedDate\": \"2021-01-17T07:08:40.253+00:00\",\n        \"version\": 0,\n        \"id\": 1\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "CreateEmployee",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Dummy\",\r\n    \"lastName\": \"dump\",\r\n    \"nickName\": \"admin\",\r\n    \"email\": \"admini@dummy.com\",\r\n    \"telephone\": \"123456789\",\r\n    \"address\": \"123/4\",\r\n    \"city\": \"Bangkok\",\r\n    \"country\": \"Thailand\",\r\n    \"postCode\": 10120\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/private/employee",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"private",
+						"employee"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Dummy\",\r\n    \"lastName\": \"dump\",\r\n    \"nickName\": \"admin\",\r\n    \"email\": \"admini@dummy.com\",\r\n    \"telephone\": \"123456789\",\r\n    \"address\": \"123/4\",\r\n    \"city\": \"Bangkok\",\r\n    \"country\": \"Thailand\",\r\n    \"postCode\": 10120\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:13:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Dummy\",\n    \"lastName\": \"dump\",\n    \"nickName\": \"admin\",\n    \"email\": \"admini@dummy.com\",\n    \"telephone\": \"123456789\",\n    \"address\": \"123/4\",\n    \"city\": \"Bangkok\",\n    \"country\": \"Thailand\",\n    \"postCode\": 10120,\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\n    \"modifiedDate\": \"2021-01-17T07:13:14.645+00:00\",\n    \"version\": 0,\n    \"id\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "UpdateEmployee",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Dummy 1\",\r\n    \"lastName\": \"dump\",\r\n    \"nickName\": \"admin\",\r\n    \"email\": \"admini@dummy.com\",\r\n    \"telephone\": \"123456789\",\r\n    \"address\": \"123/4\",\r\n    \"city\": \"Bangkok\",\r\n    \"country\": \"Thailand\",\r\n    \"postCode\": 10120,\r\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\r\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"modifiedDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"version\": 0,\r\n    \"id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/private/employee/2",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"private",
+						"employee",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "500 ID Not exists",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Dummy 1\",\r\n    \"lastName\": \"dump\",\r\n    \"nickName\": \"admin\",\r\n    \"email\": \"admini@dummy.com\",\r\n    \"telephone\": \"123456789\",\r\n    \"address\": \"123/4\",\r\n    \"city\": \"Bangkok\",\r\n    \"country\": \"Thailand\",\r\n    \"postCode\": 10120,\r\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\r\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"modifiedDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"version\": 0,\r\n    \"id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee/4",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee",
+								"4"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:13:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Internal Server Error\",\n    \"message\": \"Employee id [4] doesn't exists\"\n}"
+				},
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Dummy 1\",\r\n    \"lastName\": \"dump\",\r\n    \"nickName\": \"admin\",\r\n    \"email\": \"admini@dummy.com\",\r\n    \"telephone\": \"123456789\",\r\n    \"address\": \"123/4\",\r\n    \"city\": \"Bangkok\",\r\n    \"country\": \"Thailand\",\r\n    \"postCode\": 10120,\r\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\r\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"modifiedDate\": \"2021-01-17T07:13:14.645+00:00\",\r\n    \"version\": 0,\r\n    \"id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee/2",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:13:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Dummy 1\",\n    \"lastName\": \"dump\",\n    \"nickName\": \"admin\",\n    \"email\": \"admini@dummy.com\",\n    \"telephone\": \"123456789\",\n    \"address\": \"123/4\",\n    \"city\": \"Bangkok\",\n    \"country\": \"Thailand\",\n    \"postCode\": 10120,\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\n    \"modifiedDate\": \"2021-01-17T07:13:59.752+00:00\",\n    \"version\": 0,\n    \"id\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "GetEmployeeById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/private/employee/2",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"private",
+						"employee",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee/2",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:14:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Dummy 1\",\n    \"lastName\": \"dump\",\n    \"nickName\": \"admin\",\n    \"email\": \"admini@dummy.com\",\n    \"telephone\": \"123456789\",\n    \"address\": \"123/4\",\n    \"city\": \"Bangkok\",\n    \"country\": \"Thailand\",\n    \"postCode\": 10120,\n    \"hiredDate\": \"2021-01-17T07:13:14.637+00:00\",\n    \"createdDate\": \"2021-01-17T07:13:14.645+00:00\",\n    \"modifiedDate\": \"2021-01-17T07:13:59.752+00:00\",\n    \"version\": 0,\n    \"id\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "DeleteEmployee",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/private/employee/4",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"private",
+						"employee",
+						"4"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee/2",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:14:23 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "500 Not Exists",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/private/employee/4",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"private",
+								"employee",
+								"4"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Jan 2021 07:14:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Internal Server Error\",\n    \"message\": \"No class com.example.employeemanagement.dao.entity.User entity with id 4 exists!\"\n}"
+				}
+			]
+		}
+	]
+}
